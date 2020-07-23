@@ -31,18 +31,17 @@ def main():
     # create_new_user()
     # get_group_by_name("Employee")
     # get_all_users()
-    print_user_information()
+    # print_user_information()
     return
 
 def get_all_identity_groups():
     url = "https://{}:{}/ers/config/identitygroup".format(ip, port)
-    payload = {}
     headers = {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
         'Authorization': 'Basic YWRtaW46QzFzY28xMjM0NQ==',
     }
-    response = requests.request("GET", url, headers=headers, data = payload, verify=False)
+    response = requests.request("GET", url, headers=headers, verify=False)
     pprint.pprint(response.json())
 
 def create_new_user():
