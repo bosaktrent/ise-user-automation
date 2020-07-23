@@ -1,0 +1,15 @@
+id,names,description,enabled,email,password,firstName,lastName,changePassword,identityGroups,expiryDateEnabled,expiryDate,enablePassword
+mmahate,Marwah,Cisco,true,mmahate@cisco.com,C1sco12345,Marwah,Mahate,false,9efe2310-8c01-11e6-996c-525400b48521,false,2020-12-11,C1sco12345
+tbosak,Trent,Cisco,true,tbosak@cisco.com,C1sco12345,Trent,Bosak,false,9efe2310-8c01-11e6-996c-525400b48521,false,2020-12-11,C1sco12345
+jkent,Jacy,Cisco,true,jkent@cisco.com,C1sco12345,Jacy,Kent,false,9efe2310-8c01-11e6-996c-525400b48521,false,2020-12-11,C1sco12345
+bbivens,Bailey,Cisco,true,bbivens@cisco.com,C1sco12345,Bailey,Bivens,false,9efe2310-8c01-11e6-996c-525400b48521,false,2020-12-11,C1sco12345
+pbenson,Pearson,Cisco,true,pbenson@cisco.com,C1sco12345,Pearson,Benson,false,9efe2310-8c01-11e6-996c-525400b48521,false,2020-12-11,C1sco12345
+bmohama,Bilal,Cisco,true,bmohama@cisco.com,C1sco12345,Bilal,Mohamad,false,9efe2310-8c01-11e6-996c-525400b48521,false,2020-12-11,C1sco12345
+sibrahi,Salam,Cisco,true,sibrahi@cisco.com,C1sco12345,Salam,Ibrahim,false,9efe2310-8c01-11e6-996c-525400b48521,false,2020-12-11,C1sco12345
+iibrahi,Iman,Cisco,true,iibrahi@cisco.com,C1sco12345,Iman,Ibrahim,false,9efe2310-8c01-11e6-996c-525400b48521,false,2020-12-11,C1sco12345
+ynasru,Yasmin,Cisco,true,ynasru@cisco.com,C1sco12345,Yasmin,Nasruddin,false,9efe2310-8c01-11e6-996c-525400b48521,false,2020-12-11,C1sco12345
+rfarawi,Rana,Cisco,true,rfarawi@cisco.com,C1sco12345,Rana,Farawi,false,9efe2310-8c01-11e6-996c-525400b48521,false,2020-12-11,C1sco12345
+asamara,Ayah,Cisco,true,asamara@cisco.com,C1sco12345,Ayah,Samara,false,9efe2310-8c01-11e6-996c-525400b48521,false,2020-12-11,C1sco12345
+kasad,Kawther,Cisco,true,kasad@cisco.com,C1sco12345,Kawther,Asad,false,9efe2310-8c01-11e6-996c-525400b48521,false,2020-12-11,C1sco12345
+dafifi,Dana,Cisco,true,dafifi@cisco.com,C1sco12345,Dana,Afifi,false,9efe2310-8c01-11e6-996c-525400b48521,false,2020-12-11,C1sco12345
+ijawad,Inayya,Cisco,true,ijawad@cisco.com,C1sco12345,Inayya,Jawad,false,9efe2310-8c01-11e6-996c-525400b48521,false,2020-12-11,C1sco12345
