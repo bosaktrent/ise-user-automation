@@ -18,11 +18,91 @@ __author__ = "Marwah Mahate <mmahate@cisco.com>"
 __copyright__ = "Copyright (c) 2020 Cisco and/or its affiliates."
 __license__ = "Cisco Sample Code License, Version 1.1"
 
+import requests
+import urllib3
+import pprint
+import json
+
+ip = "198.18.133.27" # ise ip address
+
 def main():
     # import from spreadsheet
     # creat needed json objects
     # send api request
+    # get_all_identity_groups()
+    # create_new_user()
+    # get_group_by_name("Employee")
+    # get_all_users()
+    # print_user_information()
     return
 
+def get_all_identity_groups():
+    url = "https://{}:9060/ers/config/identitygroup".format(ip)
+    payload = {}
+    headers = {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Basic YWRtaW46QzFzY28xMjM0NQ==',
+    }
+    response = requests.request("GET", url, headers=headers, data = payload, verify=False)
+    pprint.pprint(response.json())
+
+def create_new_user():
+    url = "https://{}:9060/ers/config/internaluser".format(ip)
+    dict = {
+        "InternalUser" : {
+            "id" : "id",
+            "name" : "test-trent",
+            "description" : "description",
+            "enabled" : True,
+            "email" : "email@domain.com",
+            "password" : "Pa55word1",
+            "firstName" : "fName",
+            "lastName" : "lName",
+            "changePassword" : True,
+            "identityGroups": "9efe2310-8c01-11e6-996c-525400b48521",
+            "expiryDateEnabled" : False,
+            "expiryDate" : "2020-12-11",
+            "enablePassword" : "Pa55word1"
+            }
+        }
+
+    payload = json.dumps(dict)
+
+    headers = {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Basic YWRtaW46QzFzY28xMjM0NQ==',
+    }
+    response = requests.request("POST", url, headers=headers, data = payload, verify=False)
+    print(response.status_code)
+
+def get_group_by_name(name):
+    url = "https://{}:9060/ers/config/identitygroup/name/{}".format(ip, name)
+    headers = {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Basic YWRtaW46QzFzY28xMjM0NQ==',
+        }
+    response = requests.request("GET", url, headers=headers, verify=False)
+    pprint.pprint(response.json())
+
+def get_all_users():
+    url = "https://{}:9060/ers/config/internaluser".format(ip)
+    headers = {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Basic YWRtaW46QzFzY28xMjM0NQ=='
+    }
+    response = requests.request("GET", url, headers=headers, verify=False)
+    json_response = response.json()
+    return json_response
+
+def print_user_information():
+    users = get_all_users()
+    for user in users["SearchResult"]["resources"]:
+        print("Name: {}, ID: {}".format(user["name"], user["id"]))
+
 if __name__ == '__main__':
+    urllib3.disable_warnings()
     main()
