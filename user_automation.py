@@ -23,8 +23,6 @@ import urllib3
 import pprint
 import json
 
-ip = "198.18.133.27" # ise ip address
-
 def main():
     # import from spreadsheet
     # creat needed json objects
@@ -33,11 +31,11 @@ def main():
     # create_new_user()
     # get_group_by_name("Employee")
     # get_all_users()
-    # print_user_information()
+    print_user_information()
     return
 
 def get_all_identity_groups():
-    url = "https://{}:9060/ers/config/identitygroup".format(ip)
+    url = "https://{}:{}/ers/config/identitygroup".format(ip, port)
     payload = {}
     headers = {
         'Content-Type': 'application/json',
@@ -48,7 +46,7 @@ def get_all_identity_groups():
     pprint.pprint(response.json())
 
 def create_new_user():
-    url = "https://{}:9060/ers/config/internaluser".format(ip)
+    url = "https://{}:{}/ers/config/internaluser".format(ip, port)
     dict = {
         "InternalUser" : {
             "id" : "id",
@@ -66,9 +64,7 @@ def create_new_user():
             "enablePassword" : "Pa55word1"
             }
         }
-
     payload = json.dumps(dict)
-
     headers = {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
@@ -78,17 +74,17 @@ def create_new_user():
     print(response.status_code)
 
 def get_group_by_name(name):
-    url = "https://{}:9060/ers/config/identitygroup/name/{}".format(ip, name)
+    url = "https://{}:{}/ers/config/identitygroup/name/{}".format(ip, port, name)
     headers = {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
         'Authorization': 'Basic YWRtaW46QzFzY28xMjM0NQ==',
-        }
+    }
     response = requests.request("GET", url, headers=headers, verify=False)
     pprint.pprint(response.json())
 
 def get_all_users():
-    url = "https://{}:9060/ers/config/internaluser".format(ip)
+    url = "https://{}:{}/ers/config/internaluser".format(ip, port)
     headers = {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
@@ -104,5 +100,7 @@ def print_user_information():
         print("Name: {}, ID: {}".format(user["name"], user["id"]))
 
 if __name__ == '__main__':
-    urllib3.disable_warnings()
+    ip = "198.18.133.27" # ise ip address
+    port = "9060" # port number for ise sdk
+    urllib3.disable_warnings() # disable SSL warnings
     main()
