@@ -25,57 +25,43 @@ import requests
 import urllib3
 import pprint
 import json
+import csv
+from crayons import blue, green, red
+
+user_count = 0
 
 def main():
-    # import from csv
-    # creat needed json objects
-    # json, uses human-readable text to store and transmit data objects consisting of attribute–value pairs and array data types
-    # send api request
-
     json_data = []
 
+    print("Reading users from file...")
+
     with open('users.csv') as csv_data:
-    	csv_reader = csv.DictReader(csv_data)
-    	for csv_row in csv_reader:
-    		json_data.append(csv_row)
+        csv_reader = csv.DictReader(csv_data)
+        for csv_row in csv_reader:
+            json_data.append(csv_row)
 
-    with open('users.json', 'w') as json_file:
-    	json_file.write(json.dumps(json_data))
-    # get_all_identity_groups()
-    # create_new_user()
-    # get_group_by_name("Employee")
-    # get_all_users()
-    # print_user_information()
+    for user in json_data:
+        create_new_user(user)
 
-    return
+    print("Added {} new users".format(user_count))
 
-def get_all_identity_groups():
-    url = "https://{}:{}/ers/config/identitygroup".format(ip, port)
-    headers = {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Authorization': 'Basic YWRtaW46QzFzY28xMjM0NQ==',
-    }
-    response = requests.request("GET", url, headers=headers, verify=False)
-    pprint.pprint(response.json())
-
-def create_new_user():
+def create_new_user(user):
     url = "https://{}:{}/ers/config/internaluser".format(ip, port)
     dict = {
         "InternalUser" : {
-            "id" : "id",
-            "name" : "test-trent",
-            "description" : "description",
-            "enabled" : True,
-            "email" : "email@domain.com",
-            "password" : "Pa55word1",
-            "firstName" : "fName",
-            "lastName" : "lName",
-            "changePassword" : True,
-            "identityGroups": "9efe2310-8c01-11e6-996c-525400b48521",
-            "expiryDateEnabled" : False,
-            "expiryDate" : "2020-12-11",
-            "enablePassword" : "Pa55word1"
+            "id" : user['id'],
+            "name" : user['name'],
+            "description" : user['description'],
+            "enabled" : user['enabled'],
+            "email" : user['email'],
+            "password" : user['password'],
+            "firstName" : user['firstName'],
+            "lastName" : user['lastName'],
+            "changePassword" : user['changePassword'],
+            "identityGroups": get_group_by_name(user['identityGroups']),
+            "expiryDateEnabled" : user['expiryDateEnabled'],
+            "expiryDate" : user['expiryDate'],
+            "enablePassword" : user['enablePassword']
             }
         }
     payload = json.dumps(dict)
@@ -85,7 +71,12 @@ def create_new_user():
         'Authorization': 'Basic YWRtaW46QzFzY28xMjM0NQ==',
     }
     response = requests.request("POST", url, headers=headers, data = payload, verify=False)
-    print(response.status_code)
+    if response.status_code == 201:
+        print(green(response.status_code) + " - added user: {} {}".format(user['firstName'], user['lastName']))
+        global user_count
+        user_count = user_count + 1
+    else:
+        print(red(response.status_code))
 
 def get_group_by_name(name):
     url = "https://{}:{}/ers/config/identitygroup/name/{}".format(ip, port, name)
@@ -95,23 +86,7 @@ def get_group_by_name(name):
         'Authorization': 'Basic YWRtaW46QzFzY28xMjM0NQ==',
     }
     response = requests.request("GET", url, headers=headers, verify=False)
-    pprint.pprint(response.json())
-
-def get_all_users():
-    url = "https://{}:{}/ers/config/internaluser".format(ip, port)
-    headers = {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': 'Basic YWRtaW46QzFzY28xMjM0NQ=='
-    }
-    response = requests.request("GET", url, headers=headers, verify=False)
-    json_response = response.json()
-    return json_response
-
-def print_user_information():
-    users = get_all_users()
-    for user in users["SearchResult"]["resources"]:
-        print("Name: {}, ID: {}".format(user["name"], user["id"]))
+    return response.json()['IdentityGroup']['id']
 
 if __name__ == '__main__':
     ip = "198.18.133.27" # ise ip address
