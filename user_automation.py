@@ -13,6 +13,9 @@ IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
 or implied.
 """
 
+import csv
+import json
+
 __author__ = "Trent Bosak <tbosak@cisco.com>"
 __author__ = "Marwah Mahate <mmahate@cisco.com>"
 __copyright__ = "Copyright (c) 2020 Cisco and/or its affiliates."
@@ -24,14 +27,26 @@ import pprint
 import json
 
 def main():
-    # import from spreadsheet
+    # import from csv
     # creat needed json objects
+    # json, uses human-readable text to store and transmit data objects consisting of attribute–value pairs and array data types
     # send api request
+
+    json_data = []
+
+    with open('users.csv') as csv_data:
+    	csv_reader = csv.DictReader(csv_data)
+    	for csv_row in csv_reader:
+    		json_data.append(csv_row)
+
+    with open('users.json', 'w') as json_file:
+    	json_file.write(json.dumps(json_data))
     # get_all_identity_groups()
     # create_new_user()
     # get_group_by_name("Employee")
     # get_all_users()
     # print_user_information()
+
     return
 
 def get_all_identity_groups():
