@@ -27,16 +27,27 @@ import pprint
 import json
 import csv
 from crayons import blue, green, red
+import sys
 
 user_count = 0
 
 def main():
     json_data = []
 
+    file_name = input("Enter filename: ")
+    if len(file_name) == 0:
+        print ("Next time please enter something")
+        sys.exit()
+    try:
+        file = open(file_name, "r")
+    except IOError:
+        print ("There was an error reading file")
+        sys.exit()
+
     print("Reading users from file...")
 
-    with open('users.csv') as csv_data:
-        csv_reader = csv.DictReader(csv_data)
+    with file:
+        csv_reader = csv.DictReader(file)
         for csv_row in csv_reader:
             json_data.append(csv_row)
 
