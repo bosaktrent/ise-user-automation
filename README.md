@@ -4,11 +4,12 @@ This project was developed for the 2020 Global Sales Internship Hackathon.
 
 The main goal of the project is to provide Zues Clothing Company with a way to automate the onboarding process for new employees.
 
-Our program takes user information stored in a csv/excel file and creates a new identity for each user in the ISE platform.
+Our program takes user information stored in a csv file and creates a new identity for each user in the ISE platform.
 
 ### Requirements
 * Python 3
 * [Requests][requests_link]
+* Crayons
 * Cisco ISE
 
 
