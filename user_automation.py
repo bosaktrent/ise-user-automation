@@ -13,9 +13,6 @@ IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
 or implied.
 """
 
-import csv
-import json
-
 __author__ = "Trent Bosak <tbosak@cisco.com>"
 __author__ = "Marwah Mahate <mmahate@cisco.com>"
 __copyright__ = "Copyright (c) 2020 Cisco and/or its affiliates."
